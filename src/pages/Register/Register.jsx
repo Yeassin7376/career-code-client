@@ -1,9 +1,13 @@
 import Lottie from 'lottie-react';
-import React from 'react';
+import React, { use } from 'react';
 
 import registerLottie from '../../assets/register.json'
+import AuthContext from '../../context/AuthContext/AuthContext';
+import Swal from 'sweetalert2';
 
 const Register = () => {
+
+    const {createUser} = use(AuthContext)
 
     const handleRegister = e => {
         e.preventDefault();
@@ -12,6 +16,20 @@ const Register = () => {
         const password = form.password.value;
         console.log(email, password);
         
+        createUser(email, password)
+            .then((result) => {
+                console.log(result);
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Register Successful",
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
+            }).catch((err) => {
+                console.log(err);
+                
+            });
         
     }
 

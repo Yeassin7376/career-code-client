@@ -1,17 +1,34 @@
 import React, { use } from "react";
 import { Link, NavLink } from "react-router";
 import AuthContext from "../../context/AuthContext/AuthContext";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
+  const { user, signOutUser } = use(AuthContext);
+  console.log(user);
 
-    const {user} = use(AuthContext)
-    console.log(user);
-    
+  const handleSignOut = () => {
+    signOutUser()
+      .then(() => {
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Sign Out Successful",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        
+      });
+  };
 
   const links = (
     <>
-      <li><NavLink to='/'>Home</NavLink></li>
-      
+      <li>
+        <NavLink to="/">Home</NavLink>
+      </li>
     </>
   );
 
@@ -46,13 +63,22 @@ const Navbar = () => {
         <a className="btn btn-ghost text-xl">daisyUI</a>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-          {links}
-        </ul>
+        <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end">
-        <Link to='/register' className="btn">Register</Link>
-        <Link to="/signIn" className="btn">Sign In</Link>
+        <p className="mr-1">{user.email}</p>
+        {user ? (
+          <button onClick={handleSignOut} className="btn">Sign Out</button>
+        ) : (
+          <>
+            <Link to="/register" className="btn">
+              Register
+            </Link>
+            <Link to="/signIn" className="btn">
+              Sign In
+            </Link>
+          </>
+        )}
       </div>
     </div>
   );

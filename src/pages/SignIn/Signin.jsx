@@ -5,10 +5,17 @@ import signInLottie from '../../assets/signIn.json'
 import Swal from 'sweetalert2';
 import Lottie from 'lottie-react';
 import SocialLogin from '../Shared/SocialLogin';
+import { useLocation, useNavigate } from 'react-router';
 
 const Signin = () => {
 
     const {signInUser} = use(AuthContext)
+    const location = useLocation();
+    console.log(location);
+    
+    const from = location.state || '/'
+    const navigate = useNavigate()
+    
 
     const handleSignIn = e => {
         e.preventDefault();
@@ -27,6 +34,7 @@ const Signin = () => {
                     showConfirmButton: false,
                     timer: 1500
                   });
+                  navigate(from);
             }).catch((err) => {
                 console.log(err);
                 

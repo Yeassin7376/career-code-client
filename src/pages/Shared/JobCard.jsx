@@ -15,7 +15,7 @@ const JobCard = ({ job }) => {
   } = job;
 
   return (
-    <div className="card bg-base-100 w-96 shadow-sm">
+    <div className="card bg-base-100 p-5 border shadow-sm">
       <div className="flex gap-2">
         <figure>
           <img className="w-24" src={company_logo} alt="Shoes" />

@@ -1,7 +1,7 @@
-import React, { use } from "react";
-import { Link, NavLink } from "react-router";
-import AuthContext from "../../context/AuthContext/AuthContext";
-import Swal from "sweetalert2";
+import React, { use } from 'react';
+import { Link, NavLink } from 'react-router';
+import AuthContext from '../../context/AuthContext/AuthContext';
+import Swal from 'sweetalert2';
 
 const Navbar = () => {
   const { user, signOutUser } = use(AuthContext);
@@ -11,16 +11,15 @@ const Navbar = () => {
     signOutUser()
       .then(() => {
         Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "Sign Out Successful",
+          position: 'top-end',
+          icon: 'success',
+          title: 'Sign Out Successful',
           showConfirmButton: false,
-          timer: 1500,
+          timer: 1500
         });
       })
       .catch((err) => {
         console.log(err);
-        
       });
   };
 
@@ -29,13 +28,25 @@ const Navbar = () => {
       <li>
         <NavLink to="/">Home</NavLink>
       </li>
-      {
-        user && <>
-        <li>
+      {/* check the user role */}
+      {user && (
+        <>
+          <li>
             <NavLink to="/myApplications">My Applications</NavLink>
-        </li>
+          </li>
         </>
-      }
+      )}
+      {/* check the user role */}
+      {user && (
+        <>
+          <li>
+            <NavLink to="/addJob">Add Job</NavLink>
+          </li>
+          <li>
+            <NavLink to="/myPostedJobs">My Posted Jobs</NavLink>
+          </li>
+        </>
+      )}
     </>
   );
 
@@ -51,19 +62,11 @@ const Navbar = () => {
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
-              {" "}
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />{" "}
+              {' '}
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />{' '}
             </svg>
           </div>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-          >
+          <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
             {links}
           </ul>
         </div>
@@ -73,11 +76,11 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end">
-        {
-          user && <p className="mr-1">{user?.email}</p>
-        }
+        {user && <p className="mr-1">{user?.email}</p>}
         {user ? (
-          <button onClick={handleSignOut} className="btn">Sign Out</button>
+          <button onClick={handleSignOut} className="btn">
+            Sign Out
+          </button>
         ) : (
           <>
             <Link to="/register" className="btn">

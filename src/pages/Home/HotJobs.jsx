@@ -3,7 +3,7 @@ import JobCard from '../Shared/JobCard';
 
 const HotJobs = ({jobsPromise}) => {
     const jobs = use(jobsPromise)
-    console.log(jobs);
+    // console.log(jobs);
     
     return (
         <div>
